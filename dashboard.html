@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* صورة واسم المستخدم */
+.profile{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: center;
+}
+
+.profile img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile p{
+    margin: 5px 0 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>Study Planner</h2>
+<a href="dashboard.html" class="active">Dashboard</a>
+<a href="courses.html">Courses</a>
+<a href="deadlines.html">Deadlines</a>
+<a href="availability.html">Availability</a>
+<a href="statistics.html">Statistics</a>
+
+<!-- 👇 عدلنا تسجيل الخروج -->
+<a href="#" onclick="logout()">Log out</a>
+</div>
+
+<div class="main">
+
+<!-- 👤 البروفايل -->
+<div class="profile">
+    <img src="c:\Users\danam\Desktop\web project\download.png" alt="profile">
+    <p id="username">User Name</p>
+</div>
+
+<h1>Dashboard</h1>
+
+<div class="card">
+<h3>Welcome Student</h3>
+<p>This system helps you organize your study schedule.</p>
+</div>
+
+<div class="card">
+<h3>Quick Access</h3>
+<p>Add courses, manage deadlines and track your study progress.</p>
+</div>
+
+</div>
+
+<!-- 🔥 سكربت الربط -->
+<script>
+let name = localStorage.getItem("loggedInUser");
+
+// عرض الاسم
+if(name){
+    document.getElementById("username").textContent = name;
+}else{
+    document.getElementById("username").textContent = "Guest";
+}
+
+// تسجيل الخروج
+function logout(){
+    localStorage.removeItem("loggedInUser"); // نحذف المستخدم الحالي
+    window.location.href = "index.html"; // نرجع لصفحة تسجيل الدخول
+}
+</script>
+
+</body>
+</html>

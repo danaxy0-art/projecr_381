@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Courses</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+<h2>Study Planner</h2>
+<a href="dashboard.html">Dashboard</a>
+<a href="courses.html" class="active">Courses</a>
+<a href="deadlines.html">Deadlines</a>
+<a href="availability.html">Availability</a>
+<a href="statistics.html">Statistics</a>
+</div>
+
+<div class="main">
+
+<h1>Courses</h1>
+
+<div class="card">
+
+<input id="courseName" placeholder="Course Name">
+<input id="hours" placeholder="Credit Hours" type="number">
+
+<button onclick="addCourse()">Add Course</button>
+
+<table id="table">
+<tr>
+<th>ID</th>
+<th>Course</th>
+<th>Hours</th>
+<th>Actions</th>
+</tr>
+</table>
+
+<p id="emptyMsg">No courses added yet</p>
+
+</div>
+
+</div>
+
+<script>
+let courses = [];
+let nextId = 1;
+
+// منع التكرار
+function isDuplicate(name, excludeId) {
+  return courses.some(c =>
+    c.name.toLowerCase() === name.toLowerCase() && c.id !== excludeId
+  );
+}
+
+// عرض البيانات
+function render() {
+  const table = document.getElementById("table");
+  
+  // حذف كل الصفوف ما عدا الهيدر
+  table.innerHTML = `
+    <tr>
+      <th>ID</th>
+      <th>Course</th>
+      <th>Hours</th>
+      <th>Actions</th>
+    </tr>
+  `;
+
+  if (courses.length === 0) {
+    document.getElementById("emptyMsg").style.display = "block";
+    return;
+  } else {
+    document.getElementById("emptyMsg").style.display = "none";
+  }
+
+  courses.forEach(c => {
+    let row = table.insertRow();
+
+    row.innerHTML = `
+      <td>${c.id}</td>
+      <td>${c.name}</td>
+      <td>${c.hours}</td>
+      <td>
+        <button class="edit" onclick="editCourse(${c.id})">Edit</button>
+        <button class="delete" onclick="deleteCourse(${c.id})">Delete</button>
+      </td>
+    `;
+  });
+}
+
+// إضافة
+function addCourse() {
+  const name = document.getElementById("courseName").value.trim();
+  const hours = parseInt(document.getElementById("hours").value);
+
+  if (!name || isNaN(hours)) {
+    alert("Enter valid data");
+    return;
+  }
+
+  if (isDuplicate(name)) {
+    alert("Course already exists ");
+    return;
+  }
+
+  courses.push({
+    id: nextId++,
+    name,
+    hours
+  });
+
+  document.getElementById("courseName").value = "";
+  document.getElementById("hours").value = "";
+
+  render();
+}
+
+// حذف
+function deleteCourse(id) {
+  courses = courses.filter(c => c.id !== id);
+  render();
+}
+
+// تعديل
+function editCourse(id) {
+  const c = courses.find(x => x.id === id);
+
+  let newName = prompt("New course name:", c.name);
+  if (newName === null) return;
+
+  let newHours = prompt("New hours:", c.hours);
+  if (newHours === null) return;
+
+  newName = newName.trim();
+  const hoursVal = parseInt(newHours);
+
+  if (!newName || isNaN(hoursVal)) {
+    alert("Invalid input");
+    return;
+  }
+
+  if (isDuplicate(newName, id)) {
+    alert("Course already exists ❌");
+    return;
+  }
+
+  c.name = newName;
+  c.hours = hoursVal;
+
+  render();
+}
+
+// بيانات افتراضية
+courses.push({ id: nextId++, name: "SWE 381", hours: 3 });
+
+render();
+</script>
+
+</body>
+</html>
