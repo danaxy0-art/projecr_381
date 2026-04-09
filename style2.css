@@ -7,11 +7,18 @@ body {
 }
 /* زر تسجيل الدخول */
 .header-button button {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-right: 40px;
-    background-color: #b3c1df;
+    background-color: #1e3f7f;
+    color: #f5f5f5;
+    padding: 12px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+@keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
 }
 .header-button button:hover {
     background-color:#6190E8;
@@ -58,56 +65,6 @@ body {
     z-index: 1001;
 }
 
-/* زر X */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 26px;
-    background: transparent; /* شفاف */
-    border: none;
-    cursor: pointer;
-    color: #1e3f7f;
-}
-
-/* القائمة */
-.menu-buttons {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    gap: 12px; /* مسافة بين الأزرار */
-}
-
-/* أزرار القائمة */
-.sidebar button {
-    width: 85%;
-    padding: 14px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(45deg,#1e3f7f,#6190E8);
-    color: #fff;
-    cursor: pointer;
-    font-size: 17px;
-    transition: 0.3s;
-}
-
-.sidebar button:hover {
-    transform: translateX(6px);
-}
-
-/* زر الخروج */
-.logout-btn {
-    margin-top: 20px; /* مسافة بس مو ينزل تحت */
-    margin-bottom: 20px;
-    width: 85%;
-    background: linear-gradient(45deg,#ff4b2b,#ff416c);
-}
-
-.logout-btn:hover {
-    transform: translateX(6px);
-}
-
 /* Main */
 .main {
     flex: 1;
@@ -135,7 +92,6 @@ body {
     transform: translateX(-50%);
     
 }
-
 
 
 .logo {
@@ -192,15 +148,70 @@ body {
 }
 
 .card {
-    background: #fff;
-    width: 350px;
-    padding: 20px;
-    border-radius: 15px;
+    background: #f3f3f3;
+    width: 220px;
+    height: 180px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 25px;
+    cursor: pointer;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* الأيقونة */
+.card i {
+    font-size: 40px;
+    color: #1e3f7f;
+    margin-bottom: 15px;
+}
+
+/* العنوان */
+.card h4 {
+    margin: 10px 0;
+    color: #0b3c5d;
     transition: 0.3s;
 }
+/* عند المرور */
 .card:hover {
-    transform: scale(1.08);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    background: #1e3f7f;
+}
+
+/* ✨ خلي الأيقونة تصير بيضاء */
+.card:hover i {
+    color: white;
+}
+
+/* النص مخفي */
+.card p {
+    opacity: 0;
+    transform: translateY(20px);
+    font-size: 20px;
+    color: white;
+    transition: 0.3s;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+}
+
+/* ✨ عند المرور */
+.card:hover {
+    transform: translateY(-10px);
+    background: #1e3f7f;
+}
+
+/* إخفاء العنوان فقط */
+.card:hover h4 {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+/* إظهار النص */
+.card:hover p {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Footer */
